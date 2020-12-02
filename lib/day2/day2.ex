@@ -23,14 +23,8 @@ defmodule Aoc2020.Day2 do
     letter_at_expected_index = Enum.at(letters_as_list, expected_index - 1)
     letter_at_not_expected_index = Enum.at(letters_as_list, not_expected_index - 1)
     cond do
-      (letter_at_expected_index == c &&
-         letter_at_not_expected_index != c) ||
-          (letter_at_expected_index != c &&
-             letter_at_not_expected_index == c) ->
-        true
-
-      true ->
-        false
+      (letter_at_expected_index == c && letter_at_not_expected_index != c) || (letter_at_expected_index != c && letter_at_not_expected_index == c) -> true
+      true -> false
     end
   end
 
