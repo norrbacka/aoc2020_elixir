@@ -20,8 +20,6 @@ defmodule Aoc2020.Day3 do
         y = y + dy
         c = world |> Enum.at(y) |> Enum.at(x)
 
-        #IO.inspect(%{:c => c, :xy => [x, y]})
-
         cond do
           c == "#" ->
             xs = xs + 1
