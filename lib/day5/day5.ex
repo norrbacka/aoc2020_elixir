@@ -4,10 +4,9 @@ defmodule Aoc2020.Day5 do
 
     def get(entry) do
       entry
+        |> String.slice(7..9)
         |> String.replace("R", "1")
         |> String.replace("L", "0")
-        |> String.replace("F", "0")
-        |> String.replace("B", "0")
         |> to_charlist()
         |> List.to_integer(2)
     end
@@ -30,8 +29,6 @@ defmodule Aoc2020.Day5 do
     def get(entry) do
       entry
         |> String.slice(0..6)
-        |> String.replace("R", "0")
-        |> String.replace("L", "0")
         |> String.replace("F", "0")
         |> String.replace("B", "1")
         |> to_charlist()
@@ -51,6 +48,7 @@ defmodule Aoc2020.Day5 do
       row = Rows.get(entry)
       column = Columns.get(entry)
       seat_id = (row * 8) + column
+      seat_id
     end
 
     # Aoc2020.Day5.SetIdCalculator.test
