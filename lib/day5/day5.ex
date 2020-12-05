@@ -78,4 +78,15 @@ defmodule Aoc2020.Day5 do
     highest_seat_id
   end
 
+  # Aoc2020.Day5.task2
+  def task2 do
+    input = Read.get("./lib/day5/input.txt")
+    my_seat = (Enum.map(input, fn entry -> SetIdCalculator.calc(entry) end)
+      |> Enum.sort()
+      |> Enum.chunk_every(2, 1)
+      |> Enum.find(fn x -> Enum.at(x,0) != Enum.at(x,1) -1 end)
+      |> Enum.at(0)) + 1
+      my_seat
+  end
+
 end
