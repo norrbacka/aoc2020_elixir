@@ -12,6 +12,6 @@ Well, something like this:
 0. Install elixir (https://elixir-lang.org/install.html)
 1. Browse to the root folder in a terminal, that is this folder where the readme is!
 2. Run `iex -S mix`
-3. Run `Aoc2020.DayX.taskY` where 
-    X -> is the day you want to se the result for
-    Y -> is the task for that day you want to se the result for
+3. Run `Aoc2020.DayX.taskY` where\
+    X -> is the day you want to se the result for\
+    Y -> is the task for that day you want to se the result for\
