@@ -25,11 +25,10 @@ defmodule Aoc2020.Day6 do
 
   def count_questions_all_in_group_said_yes_to(group) do
     Enum.filter(group.letters, fn letter ->
-      everyone_has = Enum.all?(group.answers, fn entry ->
-        in_entry = letter_is_in_entry(entry, letter)
-        in_entry
+      everyone_has_letter = Enum.all?(group.answers, fn entry ->
+        letter_is_in_entry(entry, letter)
       end)
-      everyone_has
+      everyone_has_letter
     end)
     |> Enum.count()
   end
