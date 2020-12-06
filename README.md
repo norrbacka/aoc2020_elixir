@@ -14,4 +14,4 @@ Well, something like this:
 2. Run `iex -S mix`
 3. Run `Aoc2020.DayX.taskY` where\
     X -> is the day you want to se the result for\
-    Y -> is the task for that day you want to se the result for\
+    Y -> is the task for that day you want to se the result for
