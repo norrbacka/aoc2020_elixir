@@ -16,7 +16,6 @@ defmodule Aoc2020.Day7 do
           cond do
             child |> String.contains?("no other bags") ->
               []
-
             true ->
               {amount, _} =
                 child |> String.slice(0..0) |> String.to_charlist() |> :string.to_integer()
@@ -35,7 +34,7 @@ defmodule Aoc2020.Day7 do
               }
           end
         end)
-
+        |> Enum.filter(fn child -> child != [] end) #So goddamn ugly, but whatever
       %{
         :color => color,
         :children => children
@@ -43,24 +42,21 @@ defmodule Aoc2020.Day7 do
     end)
   end
 
-  def get_colors(bags, color, colors) do
+  def get_parents_for_color(bags, color, colors) do
     colors = Enum.concat(colors, [color])
-
     parents =
       bags
       |> Enum.filter(fn
         bag -> Enum.any?(bag.children, fn x -> x.color == color end)
       end)
-
     case Enum.any?(parents) do
       is_parent when is_parent == true ->
         colors
         |> Enum.concat(
           Enum.flat_map(parents, fn p ->
-            get_colors(bags, p.color, colors)
+            get_parents_for_color(bags, p.color, colors)
           end)
         )
-
       is_parent when is_parent == false ->
         colors
     end
@@ -70,12 +66,12 @@ defmodule Aoc2020.Day7 do
   def task1 do
     ("./lib/day7/input.txt"
      |> read
-     |> get_colors("shiny gold", [])
+     |> get_parents_for_color("shiny gold", [])
      |> Enum.uniq()
-     |> Enum.count()) - 1
+     |> Enum.count()) - 1 # because we include ourself at the moment, so we have to retract that
   end
 
-  def count_children_for(bags, color) do
+  def get_children_for_color(bags, color) do
     current =
       bags
       |> Enum.find(fn bag -> bag.color == color end)
@@ -86,7 +82,7 @@ defmodule Aoc2020.Day7 do
         child != [] ->
           1..child.amount
           |> Enum.flat_map(fn _ ->
-            [child.color, count_children_for(bags, child.color)]
+            [child.color, get_children_for_color(bags, child.color)]
           end)
 
         true ->
@@ -99,7 +95,7 @@ defmodule Aoc2020.Day7 do
   def task2 do
     "./lib/day7/input.txt"
     |> read
-    |> count_children_for("shiny gold")
+    |> get_children_for_color("shiny gold")
     |> List.flatten()
     |> Enum.count()
   end
