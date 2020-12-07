@@ -72,22 +72,14 @@ defmodule Aoc2020.Day7 do
   end
 
   def get_children_for_color(bags, color) do
-    current =
-      bags
+    current = bags
       |> Enum.find(fn bag -> bag.color == color end)
-
     current.children
     |> Enum.flat_map(fn child ->
-      cond do
-        child != [] ->
-          1..child.amount
-          |> Enum.flat_map(fn _ ->
-            [child.color, get_children_for_color(bags, child.color)]
-          end)
-
-        true ->
-          []
-      end
+        1..child.amount
+        |> Enum.flat_map(fn _ ->
+          [child.color, get_children_for_color(bags, child.color)]
+        end)
     end)
   end
 
