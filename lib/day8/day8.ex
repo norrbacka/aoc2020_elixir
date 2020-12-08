@@ -14,6 +14,12 @@ defmodule Aoc0202.Day8 do
     end)
   end
 
+  @spec run_program(any, atom | %{calls: any, operation: integer}) ::
+
+
+
+          {:error, atom | %{calls: any, operation: integer}}
+          | {:ok, %{accelerator: any, calls: maybe_improper_list, operation: number}}
   def run_program(instructions, memory) do
     should_break = Enum.any?(memory.calls, fn c -> c == memory.operation end)
     total_instructions = Enum.count(instructions) - 1
@@ -110,14 +116,8 @@ defmodule Aoc0202.Day8 do
     end)
   end
 
-  def run_program_fixed(instructions) do
-    total_instructions = Enum.count(instructions) - 1
-    all_instructions = 0..total_instructions
-  end
-
-  # Aoc0202.Day8.test2
-  def test2() do
-    instructions = "./lib/day8/test.txt" |> read
+  def run_all_combination_fixes_until_ok(input) do
+    instructions = input |> read
     total_instructions = Enum.count(instructions) - 1
     all_instructions = 0..total_instructions
 
@@ -127,41 +127,31 @@ defmodule Aoc0202.Day8 do
         to_switch |> flip_instruction(instructions)
       end)
 
-    all_possible_changed_instructions
-    |> Enum.find(fn ins ->
-      case ins |> run_program(%{:operation => 0, :calls => [], :accelerator => 0}) do
-        {:ok, memory} ->
-          IO.inspect(memory, label: "result")
-          true
-
-        _ ->
-          false
-      end
-    end)
-  end
-
-    # Aoc0202.Day8.task2
-    def task2() do
-      instructions = "./lib/day8/input.txt" |> read
-      total_instructions = Enum.count(instructions) - 1
-      all_instructions = 0..total_instructions
-
-      all_possible_changed_instructions =
-        all_instructions
-        |> Enum.map(fn to_switch ->
-          to_switch |> flip_instruction(instructions)
-        end)
-
+    correct_instruction =
       all_possible_changed_instructions
       |> Enum.find(fn ins ->
         case ins |> run_program(%{:operation => 0, :calls => [], :accelerator => 0}) do
-          {:ok, memory} ->
-            IO.inspect(memory, label: "result")
+          {:ok, _} ->
             true
 
           _ ->
             false
         end
       end)
-    end
+
+    {:ok, end_state} =
+      run_program(correct_instruction, %{:operation => 0, :calls => [], :accelerator => 0})
+
+    end_state
+  end
+
+  # Aoc0202.Day8.test2
+  def test2() do
+    run_all_combination_fixes_until_ok("./lib/day8/test.txt")
+  end
+
+  # Aoc0202.Day8.task2
+  def task2() do
+    run_all_combination_fixes_until_ok("./lib/day8/input.txt")
+  end
 end
