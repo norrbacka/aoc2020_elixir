@@ -15,3 +15,25 @@ Well, something like this:
 3. Run `Aoc2020.DayX.taskY` where\
     X -> is the day you want to se the result for\
     Y -> is the task for that day you want to se the result for
+    
+## Progression
+Day 1.1 :heavy_check_mark:
+Day 1.2 :heavy_check_mark:
+Day 2.1 :heavy_check_mark:
+Day 2.2 :heavy_check_mark:
+Day 3.1 :heavy_check_mark:
+Day 3.2 :heavy_check_mark:
+Day 4.1 :heavy_check_mark:
+Day 4.2 :heavy_check_mark:
+Day 5.1 :heavy_check_mark:
+Day 5.2 :heavy_check_mark:
+Day 6.1 :heavy_check_mark:
+Day 6.2 :heavy_check_mark:
+Day 7.1 :heavy_check_mark:
+Day 7.2 :heavy_check_mark:
+Day 8.1 :heavy_check_mark:
+Day 8.2 :heavy_check_mark:
+Day 9.1 :heavy_check_mark:
+Day 9.2 :heavy_check_mark:
+Day 10.1 :heavy_check_mark:
+Day 10.2 :heavy_check_mark:
