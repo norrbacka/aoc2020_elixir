@@ -41,4 +41,4 @@ Well, something like this:
 :x::x: Day 22 \
 :x::x: Day 23 \
 :x::x: Day 24 \
-:x::x: Day 25 \
+:x::x: Day 25
