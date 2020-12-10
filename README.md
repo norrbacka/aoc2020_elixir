@@ -17,24 +17,24 @@ Well, something like this:
     Y -> is the task for that day you want to se the result for
     
 ## Progression
-Day 1.1 &emsp;:star:\
-Day 1.2 &emsp;:star:\
-Day 2.1 &emsp;:star:\
-Day 2.2 &emsp;:star:\
-Day 3.1 &emsp;:star:\
-Day 3.2 &emsp;:star:\
-Day 4.1 &emsp;:star:\
-Day 4.2 &emsp;:star:\
-Day 5.1 &emsp;:star:\
-Day 5.2 &emsp;:star:\
-Day 6.1 &emsp;:star:\
-Day 6.2 &emsp;:star:\
-Day 7.1 &emsp;:star:\
-Day 7.2 &emsp;:star:\
-Day 8.1 &emsp;:star:\
-Day 8.2 &emsp;:star:\
-Day 9.1 &emsp;:star:\
-Day 9.2 &emsp;:star:\
+Day 1.1  &emsp;:star:\
+Day 1.2  &emsp;:star:\
+Day 2.1  &emsp;:star:\
+Day 2.2  &emsp;:star:\
+Day 3.1  &emsp;:star:\
+Day 3.2  &emsp;:star:\
+Day 4.1  &emsp;:star:\
+Day 4.2  &emsp;:star:\
+Day 5.1  &emsp;:star:\
+Day 5.2  &emsp;:star:\
+Day 6.1  &emsp;:star:\
+Day 6.2  &emsp;:star:\
+Day 7.1  &emsp;:star:\
+Day 7.2  &emsp;:star:\
+Day 8.1  &emsp;:star:\
+Day 8.2  &emsp;:star:\
+Day 9.1  &emsp;:star:\
+Day 9.2  &emsp;:star:\
 Day 10.1 &emsp;:star:\
 Day 10.2 &emsp;:star:\
 Day 11.1 &emsp;:x:\
@@ -66,4 +66,4 @@ Day 23.2 &emsp;:x:\
 Day 24.1 &emsp;:x:\
 Day 24.2 &emsp;:x:\
 Day 25.1 &emsp;:x:\
-Day 25.2 &emsp;:x:\
+Day 25.2 &emsp;:x:
