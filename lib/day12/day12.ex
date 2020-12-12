@@ -229,10 +229,9 @@ defmodule Aoc2020.Day12 do
   # Aoc2020.Day12.test
   def test do
     result =
-    "./lib/day12/test.txt"
-    |> read()
-    |> traverse()
-
+      "./lib/day12/test.txt"
+      |> read()
+      |> traverse()
 
     p1 = Kernel.abs(result.north)
     p2 = Kernel.abs(result.east)
@@ -240,13 +239,157 @@ defmodule Aoc2020.Day12 do
     IO.puts("Manhattan distance: #{d}")
   end
 
-   # Aoc2020.Day12.task1
-   def task1 do
+  # Aoc2020.Day12.task1
+  def task1 do
     result =
-    "./lib/day12/input.txt"
-    |> read()
-    |> traverse()
+      "./lib/day12/input.txt"
+      |> read()
+      |> traverse()
 
+    p1 = Kernel.abs(result.north)
+    p2 = Kernel.abs(result.east)
+    d = p1 + p2
+    IO.puts("Manhattan distance: #{d}")
+  end
+
+  def traverse_2(paths) do
+    traverse_2(
+      %{
+        :east => 0,
+        :north => 0,
+        :wp_east => 10,
+        :wp_north => 1
+      },
+      paths
+    )
+  end
+
+  def traverse_2(course, paths) do
+    case Enum.count(paths) do
+      0 ->
+        IO.inspect(course, label: "course")
+        course
+
+      _ ->
+        [currentPath | restPaths] = paths
+        IO.inspect(course, label: "course")
+        IO.inspect(currentPath, label: "currentPath")
+
+        case currentPath.dir do
+          "L" ->
+            case 360 - currentPath.distance do
+              90 ->
+                course = %{
+                  :east => course.east,
+                  :north => course.north,
+                  :wp_east => course.wp_north,
+                  :wp_north => -course.wp_east
+                }
+
+                traverse_2(course, restPaths)
+
+              180 ->
+                course = %{
+                  :east => course.east,
+                  :north => course.north,
+                  :wp_east => -course.wp_east,
+                  :wp_north => -course.wp_north
+                }
+
+                traverse_2(course, restPaths)
+
+              270 ->
+                course = %{
+                  :east => course.east,
+                  :north => course.north,
+                  :wp_east => -course.wp_north,
+                  :wp_north => course.wp_east
+                }
+
+                traverse_2(course, restPaths)
+            end
+
+          "R" ->
+            case currentPath.distance do
+              90 ->
+                course = %{
+                  :east => course.east,
+                  :north => course.north,
+                  :wp_east => course.wp_north,
+                  :wp_north => -course.wp_east
+                }
+
+                traverse_2(course, restPaths)
+
+              180 ->
+                course = %{
+                  :east => course.east,
+                  :north => course.north,
+                  :wp_east => -course.wp_east,
+                  :wp_north => -course.wp_north
+                }
+
+                traverse_2(course, restPaths)
+
+              270 ->
+                course = %{
+                  :east => course.east,
+                  :north => course.north,
+                  :wp_east => -course.wp_north,
+                  :wp_north => course.wp_east
+                }
+
+                traverse_2(course, restPaths)
+            end
+
+          "F" ->
+            east = course.east + currentPath.distance * course.wp_east
+            north = course.north + currentPath.distance * course.wp_north
+
+            course = %{
+              :wp_east => course.wp_east,
+              :wp_north => course.wp_north,
+              :east => east,
+              :north => north
+            }
+
+            traverse_2(course, restPaths)
+
+          _ ->
+            cords =
+              get_cords(currentPath.dir, currentPath.distance, course.wp_east, course.wp_north)
+
+            course = %{
+              :east => course.east,
+              :north => course.north,
+              :wp_east => cords.east,
+              :wp_north => cords.north
+            }
+
+            traverse_2(course, restPaths)
+        end
+    end
+  end
+
+  # Aoc2020.Day12.test2
+  def test2 do
+    result =
+      "./lib/day12/test.txt"
+      |> read()
+      |> traverse_2()
+
+    p1 = Kernel.abs(result.north)
+    p2 = Kernel.abs(result.east)
+    d = p1 + p2
+    IO.puts("Manhattan distance: #{d}")
+  end
+
+  # Aoc2020.Day12.task2
+  def task2 do
+    result =
+      "./lib/day12/input.txt"
+      |> read()
+      |> traverse_2()
 
     p1 = Kernel.abs(result.north)
     p2 = Kernel.abs(result.east)
