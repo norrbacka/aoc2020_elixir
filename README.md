@@ -29,7 +29,7 @@ Well, something like this:
 :star::star: Day 10 \
 :star::star: Day 11 \
 :star::star: Day 12 \
-:x::x: Day 13 \
+:star::x: Day 13 \
 :x::x: Day 14 \
 :x::x: Day 15 \
 :x::x: Day 16 \
