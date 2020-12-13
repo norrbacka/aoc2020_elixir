@@ -1,3 +1,4 @@
 %{
   "comb": {:git, "https://github.com/tallakt/comb.git", "e6660924891d88d798494ab0c5adeefb29fae8b8", [tag: "master"]},
+  "elixir_math": {:hex, :elixir_math, "0.1.2", "5655bdf7f34e30906f31cdcf3031b43dd522ce8d2936b60ad4696b2c752bf5c9", [:mix], [], "hexpm", "34f4e4384903097a8ec566784fa8e9aa2b741247d225741f07cc48250c2aa64c"},
 }

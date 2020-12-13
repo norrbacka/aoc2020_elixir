@@ -103,12 +103,16 @@ defmodule Aoc2020.Day13 do
     case Enum.all?(steps, fn x -> x == 0 end) do
       true -> time
       _ ->
-        loop_until_find_steps_all_zero(timesheet, time+1)
+        is_zero = steps |> Enum.with_index() |> Enum.filter(fn {x, _i} -> x == 0 end) |> IO.inspect(label: "is_zero")
+        from_timesheet = is_zero |> Enum.map(fn {_v, i} -> Enum.at(timesheet, i) |> elem(0) end) |> IO.inspect(label: "from_timesheet")
+        offset = from_timesheet |> Math.lcmm() |> IO.inspect(label: "offset")
+        next_step = (time + offset) |> IO.inspect(label: "next_step")
+        loop_until_find_steps_all_zero(timesheet, next_step)
     end
   end
 
-  # Aoc2020.Day13.test2
-  def test2 do
+  # Aoc2020.Day13.task2
+  def task2 do
     data = "./lib/day13/test.txt" |> read2() |> IO.inspect
 
     # should leave me zeros everywhere
@@ -120,6 +124,16 @@ defmodule Aoc2020.Day13 do
     (get_steps_offset_from_time(get_timesheet("1789,37,47,1889"), 1202161486) == [0, 0, 0, 0]) |> IO.inspect
 
     # okay seems to work from here
-    loop_until_find_steps_all_zero(data.timesheet, 1068781-5)
+    loop_until_find_steps_all_zero(data.timesheet, 0)
+
+    data = "./lib/day13/input.txt" |> read2() |> IO.inspect
+    loop_until_find_steps_all_zero(data.timesheet, data.departure)
+  end
+end
+
+defmodule Math do
+  def lcmm(args) do
+    args
+    |> Enum.reduce(1, fn a,b -> ElixirMath.lcm(a,b) end)
   end
 end
