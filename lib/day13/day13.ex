@@ -84,7 +84,6 @@ defmodule Aoc2020.Day13 do
 
     timesheet = Enum.at(rows, 1) |> get_timesheet()
 
-
     %{
       :departure => departure,
       :timesheet => timesheet
@@ -95,16 +94,33 @@ defmodule Aoc2020.Day13 do
     steps_offset_from_time =
       timesheet
       |> Enum.map(fn {bus_id, i} -> rem(time + i, bus_id) end)
+
     steps_offset_from_time
   end
 
   def loop_until_find_steps_all_zero(timesheet, time) do
     steps = get_steps_offset_from_time(timesheet, time) |> IO.inspect(label: "#{time}")
+
     case Enum.all?(steps, fn x -> x == 0 end) do
-      true -> time
+      true ->
+        time
+
+      # DISCLAIMER: looked in some threads on reddit, and this one helped me:
+      # https://www.reddit.com/r/adventofcode/comments/kcb3bb/2020_day_13_part_2_can_anyone_tell_my_why_this/
+      # So a little bit if cheating, but once I realised that I could use LCM to get the next step then it
+      # was easy to skip some loops in the recursion
       _ ->
-        is_zero = steps |> Enum.with_index() |> Enum.filter(fn {x, _i} -> x == 0 end) |> IO.inspect(label: "is_zero")
-        from_timesheet = is_zero |> Enum.map(fn {_v, i} -> Enum.at(timesheet, i) |> elem(0) end) |> IO.inspect(label: "from_timesheet")
+        is_zero =
+          steps
+          |> Enum.with_index()
+          |> Enum.filter(fn {x, _i} -> x == 0 end)
+          |> IO.inspect(label: "is_zero")
+
+        from_timesheet =
+          is_zero
+          |> Enum.map(fn {_v, i} -> Enum.at(timesheet, i) |> elem(0) end)
+          |> IO.inspect(label: "from_timesheet")
+
         offset = from_timesheet |> Math.lcmm() |> IO.inspect(label: "offset")
         next_step = (time + offset) |> IO.inspect(label: "next_step")
         loop_until_find_steps_all_zero(timesheet, next_step)
@@ -113,20 +129,28 @@ defmodule Aoc2020.Day13 do
 
   # Aoc2020.Day13.task2
   def task2 do
-    data = "./lib/day13/test.txt" |> read2() |> IO.inspect
+    data = "./lib/day13/test.txt" |> read2() |> IO.inspect()
 
     # should leave me zeros everywhere
-    (get_steps_offset_from_time(data.timesheet, 1068781) == [0, 0, 0, 0, 0]) |> IO.inspect
-    (get_steps_offset_from_time(get_timesheet("17,x,13,19"), 3417) == [0, 0, 0]) |> IO.inspect
-    (get_steps_offset_from_time(get_timesheet("67,7,59,61"), 754018) == [0, 0, 0, 0 ]) |> IO.inspect
-    (get_steps_offset_from_time(get_timesheet("67,x,7,59,61"), 779210) == [0, 0, 0, 0]) |> IO.inspect
-    (get_steps_offset_from_time(get_timesheet("67,7,x,59,61"), 1261476) == [0, 0, 0, 0]) |> IO.inspect
-    (get_steps_offset_from_time(get_timesheet("1789,37,47,1889"), 1202161486) == [0, 0, 0, 0]) |> IO.inspect
+    (get_steps_offset_from_time(data.timesheet, 1_068_781) == [0, 0, 0, 0, 0]) |> IO.inspect()
+    (get_steps_offset_from_time(get_timesheet("17,x,13,19"), 3417) == [0, 0, 0]) |> IO.inspect()
+
+    (get_steps_offset_from_time(get_timesheet("67,7,59,61"), 754_018) == [0, 0, 0, 0])
+    |> IO.inspect()
+
+    (get_steps_offset_from_time(get_timesheet("67,x,7,59,61"), 779_210) == [0, 0, 0, 0])
+    |> IO.inspect()
+
+    (get_steps_offset_from_time(get_timesheet("67,7,x,59,61"), 1_261_476) == [0, 0, 0, 0])
+    |> IO.inspect()
+
+    (get_steps_offset_from_time(get_timesheet("1789,37,47,1889"), 1_202_161_486) == [0, 0, 0, 0])
+    |> IO.inspect()
 
     # okay seems to work from here
     loop_until_find_steps_all_zero(data.timesheet, 0)
 
-    data = "./lib/day13/input.txt" |> read2() |> IO.inspect
+    data = "./lib/day13/input.txt" |> read2() |> IO.inspect()
     loop_until_find_steps_all_zero(data.timesheet, data.departure)
   end
 end
@@ -134,6 +158,6 @@ end
 defmodule Math do
   def lcmm(args) do
     args
-    |> Enum.reduce(1, fn a,b -> ElixirMath.lcm(a,b) end)
+    |> Enum.reduce(1, fn a, b -> ElixirMath.lcm(a, b) end)
   end
 end
