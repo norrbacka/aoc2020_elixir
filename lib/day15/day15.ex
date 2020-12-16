@@ -1,37 +1,28 @@
 defmodule Aoc2020.Day15 do
-  def elf_game(numbers, break_index) do
-    case Enum.count(numbers) == break_index do
+
+  @input [0,14,1,3,7,9]
+
+  def elf_game(count, last, break_index, history) do
+    case count == break_index do
       true ->
-        numbers
+        last
       _ ->
-        [last | rest] = Enum.reverse(numbers)
-        last_occurence_index =
-        rest
-        |> Enum.with_index()
-        |> Enum.find(fn {x, _} -> x == last end)
-        case last_occurence_index do
+        case Map.get(history, last, nil) do
           nil ->
-            elf_game(numbers ++ [0], break_index)
-          {_, index} ->
-            index = (index + 1)
-            new_list = (numbers ++ [index])
-            elf_game(new_list, break_index)
+            elf_game(count+1, 0, break_index, Map.put(history, last, count))
+          i ->
+            elf_game(count+1, (count - i), break_index, Map.put(history, last, count))
         end
     end
   end
 
   # Aoc2020.Day15.task1
   def task1 do
-    elf_game([0,14,1,3,7,9], 2020)
-    |> Enum.reverse()
-    |> Enum.take(1)
+    elf_game(Enum.count(@input), List.last(@input), 2020, Map.new(Enum.with_index(@input, 1)))
   end
 
   # Aoc2020.Day15.task2
   def task2 do
-    elf_game([0,14,1,3,7,9], 30000000)
-    |> Enum.reverse()
-    |> Enum.take(1)
+    elf_game(Enum.count(@input), List.last(@input), 30_000_000, Map.new(Enum.with_index(@input, 1)))
   end
-
 end
