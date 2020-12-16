@@ -27,4 +27,11 @@ defmodule Aoc2020.Day15 do
     |> Enum.take(1)
   end
 
+  # Aoc2020.Day15.task2
+  def task2 do
+    elf_game([0,14,1,3,7,9], 30000000)
+    |> Enum.reverse()
+    |> Enum.take(1)
+  end
+
 end
