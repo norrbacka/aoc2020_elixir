@@ -1,9 +1,8 @@
 defmodule Aoc2020.Day16 do
 
-  # Aoc2020.Day16.task1
-  def task1() do
+  def get_tickets do
     input = "./lib/day16/input.txt" |> File.read!()
-    [r, _, n] = input |> String.split("\r\n\r\n")
+    [r, m, n] = input |> String.split("\r\n\r\n")
 
     rules = r
     |> String.split("\r\n")
@@ -47,7 +46,36 @@ defmodule Aoc2020.Day16 do
     end)
     |> IO.inspect(label: "invalid_tickets")
 
+    valid_tickets = tickets_nearby
+    |> Enum.filter(fn t ->
+      t not in invalid_tickets
+    end)
+
+    mine = m
+    |> String.split("\r\n")
+    |> Enum.drop(1)
+    |> Enum.map(&String.trim/1)
+    |> Enum.map(fn t ->
+      t
+      |> String.split(",")
+      |> Enum.map(&String.to_integer/1)
+    end)
+    |> IO.inspect(label: "mine")
+
+    {invalid_tickets, valid_tickets, mine, rules}
+  end
+
+  # Aoc2020.Day16.task1
+  def task1() do
+    {invalid_tickets, _valid_tickets, _mine, _ranges} = get_tickets()
     invalid_tickets
     |> Enum.sum()
+  end
+
+  # Aoc2020.Day16.task2
+  def task1() do
+    {_invalid_tickets, valid_tickets, mine, ranges} = get_tickets()
+
+
   end
 end
